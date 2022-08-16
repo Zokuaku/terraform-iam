@@ -1,0 +1,13 @@
+* text=auto
+*.ts text eol=lf
+*.tf text eol=lf
+*.tfvars text eol=lf
+*.tfbackend text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+
+language-configuration.json linguist-language=jsonc
+.vscode/**.json linguist-language=jsonc

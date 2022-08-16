@@ -1,0 +1,6 @@
+bucket               = "safecloud-global-infrastructure"
+key                  = "iam/policies/terraform.tfstate"
+region               = "us-west-2"
+workspace_key_prefix = "safecloud-terraform-infrastructure"
+dynamodb_table       = "safecloud-terraform-locks"
+encrypt              = "true"
