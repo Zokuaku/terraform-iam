@@ -1,6 +1,6 @@
 # Terraform Safecloud Infrastructure
 
-Infrastructure-as-code implementation for AWS IAM and S3 buckets to be used for Safe Softwares Safecloud.
+Infrastructure-as-code implementation for AWS IAM and S3 buckets to be used by end users that wish to fork/download/modify.
 
 ## Table of Contents
 - [Terraform Safecloud Infrastructure](#terraform-safecloud-infrastructure)
@@ -27,7 +27,7 @@ Infrastructure-as-code implementation for AWS IAM and S3 buckets to be used for 
   - [Navigation](#navigation)
 
 ## Overview
-These folders contains all the configuration files required to create AWS IAM User Accounts, Groups, Roles, Policies, IRSA Roles and S3 storage for Safecloud. Folders are disseminated into S3, IAM_User, IAM_Group, IAM_Role, IAM_Policy and IRSA repsectively to fit Terraform recommended folder heirarchy and best practice. Workspaces are not leveraged as these parameters are largely considered to be Global variables except for IRSA Roles (No independant Production/Staging/QA).
+These folders contains all the configuration files required to create AWS IAM User Accounts, Groups, Roles, Policies, IRSA Roles and S3 storage for a Company. Folders are disseminated into S3, IAM_User, IAM_Group, IAM_Role, IAM_Policy and IRSA repsectively to fit Terraform recommended folder heirarchy and best practice. Workspaces are not leveraged as these parameters are largely considered to be Global variables except for IRSA Roles (No independant Production/Staging/QA).
 
 ## Technologies
 Project is created with:
@@ -38,16 +38,16 @@ Project is created with:
 ### AWS IAM User
 This section generates the AWS IAM User account and add's it to the list respective group(s) defined in `users.tfvars.json`.
 
-Ideally this section would add SQS/SNS forwarding to automate User account forwarding with no need for third-party distribution by DevOps or TechOps.
+Ideally this section would add SQS/SNS forwarding to automate User account forwarding with no need for third-party distribution by DevOps.
 > :warning: Not fully defined
 
 Existing features are:
 * User Account Creation for (AWS Console, CLI and Service Accounts)
 * Password, Access Key and Secret Key generation with PGP encryption
 * add user to desired AWS IAM Group
-* Utilizes `policies.tf` to enforce Password Enforcement Policy defined in Safes ISMS-POL-106 Password and Access Policy
+* Utilizes `policies.tf` to enforce Password Enforcement Policy
 * Generate CSV User Account Credentials files named based on `[Username]_user_credentials.csv`
-* Creates a copy of the `[Username]_user_credentials.csv` files in the S3 Bucket `safecloud-global-infrastructure/iam/User_Credentials/`
+* Creates a copy of the `[Username]_user_credentials.csv` files in the S3 Bucket `company-global-infrastructure/iam/User_Credentials/`
 
 ### AWS IAM Group
 This section generates and applies values to AWS IAM Group based on what is defined in `groups.tfvars.json` file.
@@ -103,7 +103,7 @@ The iam scripts that are used for managing the Safecloud/AWS IAM User Infrastruc
 | `locals.tf`                          | Contains local values processed at run time with the rest of the HCL scripts.
 | `main.tf`                            | Sets Local/Remote backend values and defines AWS provider desired AWS profile and working region.
 | `output.tf`                          | Terminal output of User Name, ARN, Fingerprint, Access Key, Access Key Secret (Hashed), Password (Hashed)
-| `policies.tf`                        | Presently defines Password Enforcement Policy for AWS Accounts based on Safes ISMS-POL-106 Password and Access Policy.
+| `policies.tf`                        | Presently defines Password Enforcement Policy for AWS Accounts.
 | `README.md`                          | Used to explain the steps of configuration, testing and deployment of the HCL scripts.
 | `variables.tf`                       | Defines variables and their respective types for Terraform to process.
 | `versions.tf`                        | Contains all the required providers for the Terraform HCL scripts to operate.
@@ -113,7 +113,7 @@ The iam scripts that are used for managing the Safecloud/AWS IAM User Infrastruc
 
 ### `/iam_group`
 
-The iam scripts that are used for managing the Safecloud/AWS IAM Group Infrastructure are included in the `iam_group/` folder. They are as follows:
+The iam scripts that are used for managing the Company/AWS IAM Group Infrastructure are included in the `iam_group/` folder. They are as follows:
 
 |                 Script               |                                                Description                                               |
 |--------------------------------------|----------------------------------------------------------------------------------------------------------|
@@ -129,7 +129,7 @@ The iam scripts that are used for managing the Safecloud/AWS IAM Group Infrastru
 
 ### `/iam_role`
 
-The iam scripts that are used for managing the Safecloud/AWS IAM Role Infrastructure are included in the `iam_role/` folder. They are as follows:
+The iam scripts that are used for managing the Company/AWS IAM Role Infrastructure are included in the `iam_role/` folder. They are as follows:
 
 |                 Script               |                                                Description                                               |
 |--------------------------------------|----------------------------------------------------------------------------------------------------------|
@@ -181,7 +181,7 @@ The iam scripts that are used for managing the configuration of IRSA roles for u
 
 ### `/s3`
 
-The s3 scripts that are used for managing the Safecloud/AWS S3 Bucket and Database Infrastructure are included in the `s3/` folder. They are as follows:
+The s3 scripts that are used for managing the Company/AWS S3 Bucket and Database Infrastructure are included in the `s3/` folder. They are as follows:
 
 |                 Script               |                                                Description                                               |
 |--------------------------------------|----------------------------------------------------------------------------------------------------------|
@@ -199,7 +199,7 @@ The s3 scripts that are used for managing the Safecloud/AWS S3 Bucket and Databa
 
 ### `/iam_original`
 
-The legacy iam/s3 scripts that were used for managing the Safecloud/AWS IAM Infrastructure are included in the `iam_original/` folder. These have largely been modified and included in the associated folders listed above.
+The legacy iam/s3 scripts that were used for managing the Comapny/AWS IAM Infrastructure are included in the `iam_original/` folder. These have largely been modified and included in the associated folders listed above.
 
 ## Getting Started
 
@@ -209,9 +209,9 @@ To work with the IAM and S3 terraform configurations, you will need to install T
 
 > :key: You will need to have access to AWS credentials in your environment to proceed
 
-The work done by Terraform requires an IAM user with sufficient permissions to create/destroy many objects on AWS. To request a proper account with desired permissions contact Johnathan Kerssens or John Kennedy to use the respective IAM Terraform scripts to generate it for you per (https://safesoftware.atlassian.net/browse/DEVOPS-1989). Or in lieu of a proper locked down account, you can also reach out to Jackie Huynh for the information for the user `baradmin` for these operations for the time being.
+The work done by Terraform requires an IAM user with sufficient permissions to create/destroy many objects on AWS.
 
-Once Terraform is installed, navigate to your local `safecloud_infrastructure` directory in your terminal to work with either the various `IAM` or `S3` folders to modify and update their configurations.
+Once Terraform is installed, navigate to your local `company_infrastructure` directory in your terminal to work with either the various `IAM` or `S3` folders to modify and update their configurations.
 
 ## Navigation
 
