@@ -5,7 +5,7 @@
 /*
   Module that is used to define a DynamoDB Table in AWS.
   Presently this is only being utilized to define one for
-  managing locking on the Safecloud infrastructure 
+  managing locking on the Company infrastructure 
   Terraform.tfstate file(s) but could have other tables 
   defined through "s3_database.tvfars.json" in the future.
 */
