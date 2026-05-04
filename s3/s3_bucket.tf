@@ -5,7 +5,7 @@
 /*
   Module that is used to create S3 buckets in AWS.
   Presently this is only being utilized to define one for
-  storing the global infrastructure for safecloud by 
+  storing the global infrastructure for company by 
   safely storing our IAM and S3 Terraform.tfstate file(s) 
   but could have others defined through 
   "s3_buckets.tvfars.json"
