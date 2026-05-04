@@ -9,10 +9,7 @@
 */
 
 /*
-  AWS IAM Account Password Policy defined per Safe
-  Softwares ISMS-POL-106 Password & Access Policy
-  Section 3.2 Passphrase/Password Construction
-  Guidelines
+  AWS IAM Account Password Policy
 */
 resource "aws_iam_account_password_policy" "strict" {
   password_reuse_prevention      = 6
