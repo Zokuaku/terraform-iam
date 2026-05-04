@@ -17,4 +17,4 @@ default_region  = "us-west-2"
 /*
   S3 Bucket for Credentials Storage
 */
-s3_user_cred_folder = "safecloud-global-infrastructure"
+s3_user_cred_folder = "company-global-infrastructure"
